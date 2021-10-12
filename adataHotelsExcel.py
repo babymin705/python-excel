@@ -39,7 +39,7 @@ for filename in filenames:
                         # Search ota hotel name in ota_hotels table
                         search_ota_hotel_query = ("SELECT * FROM ota_hotels WHERE name like %s")
                         
-                        cursor.execute(search_ota_hotel_query, ("%"+hotel_ota_hotel+"%",))
+                        cursor.execute(search_ota_hotel_query, ("%"+hotel_ota_hotel.replace("'","%27")+"%",))
                         item = cursor.fetchone()
                         if(item):
                             # insert_cursor = cnx.cursor(buffered=True)
@@ -58,7 +58,7 @@ for filename in filenames:
                         print("*** hotel exist %s"%(hotel_name))
                         # update the hotel
                         search_ota_hotel_query = ("SELECT * FROM ota_hotels WHERE name like %s")
-                        cursor.execute(search_ota_hotel_query, ("%"+hotel_ota_hotel+"%",))
+                        cursor.execute(search_ota_hotel_query, ("%"+hotel_ota_hotel.replace("'","%27")+"%",))
                         item = cursor.fetchone()
                         if(item):
                             update_hotel_query = ("UPDATE hotels set ota_hotel_id = %s, city = %s, state = %s, rooms = %s, stars = %s where id = %s")
